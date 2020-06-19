@@ -9,8 +9,10 @@ class UserManager(models.Manager):
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         if len(post_data['first_name']) < 2:
             errors['first_name'] = "First name MUST be at least 3 characters long!"
-        if len(post_data['last_name']) < 2:
-            errors['last_name'] = "Last name MUST be at least 3 characters long!"
+        if len(post_data['last_name']) < 4:
+            errors['last_name'] = "Last name MUST be at least 5 characters long!"
+        if not EMAIL_REGEX.match(post_data['email']):
+            errors['email'] = "That doesn't look like an email!"
         if len(post_data['password']) < 2:
             errors['password'] = "Pasword MUST be at least 3 characters long!"
         return errors

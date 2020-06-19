@@ -12,10 +12,18 @@ def register(request):
         for error in errors.values():
             messages.error(request, error)
         return redirect('/')
-    User.objects.create( 
+    this_user = User.objects.create( 
         first_name=request.POST['first_name'],
         last_name=request.POST['last_name'],
-        email=request.POST['emails'],
+        email=request.POST['email'],
         password=request.POST['password'],
     )
-    return redirect('/')
+    request.session['user_id'] = this_user.id
+    return redirect('/success')
+
+def success(request):
+    context = {
+        'user': User.objects.get(id=request.session['user_id'])
+    }
+
+    return render(request,"success.html", context)
