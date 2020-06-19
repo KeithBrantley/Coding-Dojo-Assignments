@@ -13,8 +13,6 @@ def register(request):
             messages.error(request, error)
         return redirect('/')
     hashed = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
-    print(request.POST['password'])
-    print(hashed)
     this_user = User.objects.create( 
         first_name=request.POST['first_name'],
         last_name=request.POST['last_name'],
@@ -24,9 +22,15 @@ def register(request):
     request.session['user_id'] = this_user.id
     return redirect('/success')
 
+def login(request):
+    pass
+
 def success(request):
     context = {
         'user': User.objects.get(id=request.session['user_id'])
     }
-
     return render(request,"success.html", context)
+
+def logout(request):
+    request.session.flush()
+    return redirect('/')
