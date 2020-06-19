@@ -23,7 +23,14 @@ def register(request):
     return redirect('/success')
 
 def login(request):
-    pass
+    users = User.objects.filter(email=request.POST['email'])
+    if users:
+        logging_in_user = users[0]
+        if bcrypt.checkpw(request.POST['password'].encode(), logging_in_user.password.encode()):
+            request.session['user_id'] = logging_in_user.id
+            return redirect('/success')
+    messages.error(request, "Email not found")
+    return redirect('/')
 
 def success(request):
     context = {
