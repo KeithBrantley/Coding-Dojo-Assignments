@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import User
 
@@ -12,9 +12,10 @@ def register(request):
         for error in errors.values():
             messages.error(request, error)
         return redirect('/')
-    User.objects.create(
+    User.objects.create( 
         first_name=request.POST['first_name'],
         last_name=request.POST['last_name'],
         email=request.POST['emails'],
         password=request.POST['password'],
     )
+    return redirect('/')

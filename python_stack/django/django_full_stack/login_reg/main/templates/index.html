@@ -10,14 +10,14 @@
     <form action="/register" method="POST">
         {% csrf_token %}
         <label for="first_name">First Name:</label>
-        <label type="text" for="first_name" id="first_name"></label>
+        <input type="text" name="first_name" id="first_name"><br>
         <label for="last_name">Last Name:</label>
-        <input type="text" for="last_name" id="last_name">
+        <input type="text" name="last_name" id="last_name"><br>
         <label for="email">Email:</label>
-        <input type="email" for="email" id="email">
+        <input type="email" name="email" id="email"><br>
         <label for="password">Password</label>
-        <input type="password" name="password" id="password">
-        <button>Register</button>
+        <input type="password" name="password" id="password"><br>
+        <button>Register</button><br>
     </form>
     {% if messages %}
         <ul>
@@ -26,7 +26,6 @@
             {% endfor %}
         </ul>
     {% endif %}
-
     <hr>
     <h1>Login</h1>
 </body>
